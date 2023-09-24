@@ -5,7 +5,7 @@ from configparser import ConfigParser
 
 from pysteamcmd import steamcmd
 
-from lib.appids import AppIds
+APP_ID_INSURGENCY=581330
 
 # app initial setup
 app_dir = appdirs.user_config_dir(appname="linkup", appauthor="com.github.jakestanley")
@@ -25,7 +25,7 @@ else:
 
 def install(app: str, validate: bool):
     gameserver_path = os.path.join(games_path, app)
-    cmd.install_gamefiles(gameid=AppIds[app], game_install_dir=gameserver_path, user='anonymous', password=None, validate=validate)
+    cmd.install_gamefiles(gameid=APP_ID_INSURGENCY, game_install_dir=gameserver_path, user='anonymous', password=None, validate=validate)
 
 # insurgency stuff
 # https://mod.io/g/insurgencysandstorm/r/server-admin-guide
@@ -33,11 +33,13 @@ server_config_path=os.path.join(games_path, "insurgency", "Insurgency", "Saved",
 config = ConfigParser()
 game_ini_path = os.path.join(server_config_path, "Game.ini")
 # game_ini = config.read(game_ini_path)
-# config['DEFAULT']['bBots'] = 'True'
-# config['DEFAULT']['FriendlyBotQuota'] = '4'
+# TODO first you must add the section
+config.add_section('/script/insurgency.inscoopmode')
+config['/script/insurgency.inscoopmode']['bBots'] = 'True'
+config['/script/insurgency.inscoopmode']['FriendlyBotQuota'] = '4'
 
-# with open(game_ini_path, 'w') as configfile:    # save
-    # config.write(configfile)
+with open(game_ini_path, 'w') as configfile:    # save
+    config.write(configfile)
 
 map="Farmhouse"
 scenario="Scenario_Farmhouse_Checkpoint_Insurgents"

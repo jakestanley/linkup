@@ -1,0 +1,11 @@
+{
+    "maps": [{
+        "map": "Bab"
+    }, {
+        "map": "Citadel"
+    }, {
+        "map": "Precinct"
+    }, {
+        "map": "Prison"
+    }]
+}
