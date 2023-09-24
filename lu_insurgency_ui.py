@@ -1,11 +1,7 @@
 import sys
-import typing
-from PyQt6 import QtCore
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QGroupBox, \
     QRadioButton, QDialogButtonBox, QComboBox
-
-from insurgency import maps, teams
+from lu_insurgency_constants import maps, map_aliases, teams
 
 class InsurgencyDialog(QDialog):
     def __init__(self, parent=None) -> None:
@@ -29,20 +25,26 @@ class InsurgencyDialog(QDialog):
 
 
     def set_team(self, team):
-        self.team = team
+        self.team = None
+        for button in self.radio_buttons:
+            if button.isChecked():
+                self.team = button.text()
+                return
+                
 
         
     def create_teams_groupbox(self):
         groupbox_modes = QGroupBox("Team")
         layout = QVBoxLayout()
 
+        self.radio_buttons = []
         for team in teams:
             radio = QRadioButton(team, self)
-            if team == teams[1]:
-                radio.setChecked(True)
-                self.set_team(teams[1])
-            radio.clicked.connect(lambda: self.set_team(team))
+            radio.toggled.connect(self.set_team)
+            self.radio_buttons.append(radio)
             layout.addWidget(radio)
+
+        self.radio_buttons[0].setChecked(True)
 
         groupbox_modes.setLayout(layout)
         return groupbox_modes
@@ -56,16 +58,3 @@ class InsurgencyDialog(QDialog):
             combobox.addItem(map)
 
         return combobox
-
-
-def OpenInsurgencyDialog():
-    app = QApplication([])
-
-    dialog = InsurgencyDialog()
-    if dialog.exec() == QDialog.DialogCode.Accepted:
-        pass
-    else:
-        sys.exit(0)
-
-if __name__ == "__main__":
-    OpenInsurgencyDialog()
