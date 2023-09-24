@@ -38,6 +38,7 @@ config.add_section('/script/insurgency.inscoopmode')
 config['/script/insurgency.inscoopmode']['bBots'] = 'True'
 config['/script/insurgency.inscoopmode']['FriendlyBotQuota'] = '4'
 
+
 with open(game_ini_path, 'w') as configfile:    # save
     config.write(configfile)
 
@@ -45,9 +46,13 @@ map="Farmhouse"
 scenario="Scenario_Farmhouse_Checkpoint_Insurgents"
 rcon_password="password"
 
+def get_scenario(map: str, team: str):
+    return f"Scenario_{map}_Checkpoint_{team}"
+
+# scenario list: https://mod.io/g/insurgencysandstorm/r/server-admin-guide#heading-22
 def start_insurgency():
     binpath = os.path.join(games_path, "insurgency", "InsurgencyServer.exe")
-    # Steam appears to be required, but clashes with regular Steam. Multihome (host binding) appears to alleviate this
+    # Steam appears to be required, but clashes with regular Steam. `-multihome` (host binding) appears to alleviate this
     command = f"{binpath} {map}?Scenario={scenario}?MaxPlayers=28 -log -NoEAC -multihome={host_ip} -motd=BALLS -Rcon -RconPassword={rcon_password} -RconListenPort=27015"
     subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
