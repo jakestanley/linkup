@@ -1,6 +1,6 @@
 # Linkup
 
-Tool for managing dedicated servers for linkup games
+Dead simple tool for managing dedicated servers for linkup games
 
 ## Supported games
 
