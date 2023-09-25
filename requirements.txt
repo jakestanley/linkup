@@ -1,6 +1,9 @@
 appdirs
 pyqt6
 
+# build requirements
+pyinstaller
+
 # steam requirements
 pysteamcmd
 vdf
