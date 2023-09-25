@@ -2,6 +2,10 @@
 
 Tool for managing dedicated servers for linkup games
 
+## Supported games
+
+- Insurgency: Sandstorm
+
 # Build
 
 ## Windows

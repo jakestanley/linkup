@@ -1,7 +1,4 @@
 import sys
-import typing
-from PyQt6 import QtCore
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QLabel, \
     QLineEdit, QDialogButtonBox
 from lu_config import Config
