@@ -25,9 +25,6 @@ def OpenInsurgencyDialog():
     else:
         sys.exit(0)
 
-if __name__ == "__main__":
-    OpenInsurgencyDialog()
-
 def Insurgency(config: Config, games_dir: str):
     opts: InsurgencyOptions = OpenInsurgencyDialog()
 

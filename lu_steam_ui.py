@@ -1,12 +1,26 @@
 import sys
 from typing import List
-from PyQt6 import QtCore
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, \
-    QLabel, QWidget, QDialogButtonBox, QPushButton, QListWidget, QListWidgetItem
-from lu_config import Config
+    QLabel, QWidget, QDialogButtonBox, QPushButton, QListWidget, \
+    QListWidgetItem
 from lu_steam import Steam
 from lu_steam_game import Game
+from ui.pleasewait import PatienceDialog
+
+class T_Install(QThread):
+    finished = pyqtSignal()
+
+    def __init__(self, steam, game, validate):
+        super().__init__()
+        self.steam = steam
+        self.game = game
+        self.validate = validate
+
+    def run(self):
+        self.steam.InstallGame(self.game, self.validate)
+        self.finished.emit()
+
 
 class GameWidget(QWidget):
     def __init__(self, game: Game, steam: Steam, dialog) -> None:
@@ -43,17 +57,33 @@ class GameWidget(QWidget):
 
         self.setLayout(layout)
 
-    def install_clicked(self):
-        self.steam.InstallGame(self.game, False)
+    def close_please_wait(self):
+        self.please_wait.accept()
         self.redraw()
+
+    def install_clicked(self):
+        self.worker_thread = T_Install(self.steam, self.game, False)
+        self.worker_thread.finished.connect(self.close_please_wait)
+        self.worker_thread.start()
+        self.please_wait = PatienceDialog(self)
+        if self.please_wait.exec() == QDialog.DialogCode.Rejected:
+            # TODO: implement cancel validate
+            # self.worker_thread.finished.disconnect()
+            pass
 
     def uninstall_clicked(self):
         self.steam.UninstallGame(self.game)
         self.redraw()
 
     def validate_clicked(self):
-        self.steam.InstallGame(self.game, True)
-        self.redraw()
+        self.worker_thread = T_Install(self.steam, self.game, True)
+        self.worker_thread.finished.connect(self.close_please_wait)
+        self.worker_thread.start()
+        self.please_wait = PatienceDialog(self)
+        if self.please_wait.exec() == QDialog.DialogCode.Rejected:
+            # TODO: implement cancel validate
+            # self.worker_thread.finished.disconnect()
+            pass
 
     def play_clicked(self):
         self.dialog.play_app_id = self.game.appId

@@ -1,7 +1,4 @@
 import sys
-import typing
-from PyQt6 import QtCore
-from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QLabel, \
     QLineEdit, QDialogButtonBox
 from lu_config import Config
@@ -19,6 +16,7 @@ class CommonDialog(QDialog):
         self.host_ip.setText(config.host_ip)
         layout.addWidget(self.host_ip)
 
+        layout.addWidget(QLabel("RCON password"))
         self.rcon_password = QLineEdit(self)
         self.rcon_password.setText(config.rcon_password)
         layout.addWidget(self.rcon_password)
