@@ -5,8 +5,8 @@ from typing import List
 from pysteamcmd import steamcmd
 from src.steam.game import Game
 
-GAME_INSURGENCY=Game("Insurgency", 581330)
-GAME_CS2=Game("Counter-Strike 2", 730)
+GAME_INSURGENCY=Game("Insurgency", 581330, True)
+GAME_CS2=Game("Counter-Strike 2", 730, False)
 GAMES = [GAME_INSURGENCY, GAME_CS2]
 
 class Steam:

@@ -3,7 +3,7 @@ from typing import List
 from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, \
     QLabel, QWidget, QDialogButtonBox, QPushButton, QListWidget, \
-    QListWidgetItem
+    QListWidgetItem, QFileDialog, QLineEdit
 from src.steam.steam import Steam
 from src.steam.game import Game
 from src.ui.pleasewait import PatienceDialog
@@ -21,6 +21,11 @@ class T_Install(QThread):
         self.steam.InstallGame(self.game, self.validate)
         self.finished.emit()
 
+def OpenSingleFileDialog(self, types, line):
+    file, _ = QFileDialog.getOpenFileName(self, "Open File", "", types)
+
+    if file:
+        line.setText(file)
 
 class GameWidget(QWidget):
     def __init__(self, game: Game, steam: Steam, dialog) -> None:
@@ -34,25 +39,33 @@ class GameWidget(QWidget):
         layout = QHBoxLayout()
         
         self.label_name = QLabel(self.name)
-        self.label_installed = QLabel("Installed" if self.game.installed else "Not installed")
-        self.add_button = QPushButton("Install")
-        self.add_button.setEnabled(not self.game.installed)
-        self.add_button.clicked.connect(self.install_clicked)
-        self.remove_button = QPushButton("Uninstall")
-        self.remove_button.setEnabled(self.game.installed)
-        self.remove_button.clicked.connect(self.uninstall_clicked)
-        self.validate_button = QPushButton("Validate")
-        self.validate_button.setEnabled(self.game.installed)
-        self.validate_button.clicked.connect(self.validate_clicked)
+        self.label_installed = QLabel("Installed" if self.game.steamcmd or self.game.installed else "Not installed" if self.game.steamcmd else "Not found")
+        layout.addWidget(self.label_name)
+        layout.addWidget(self.label_installed)
+
+        if self.game.steamcmd:
+            self.add_button = QPushButton("Install")
+            self.add_button.setEnabled(not self.game.installed)
+            self.add_button.clicked.connect(self.install_clicked)
+            self.remove_button = QPushButton("Uninstall")
+            self.remove_button.setEnabled(self.game.installed)
+            self.remove_button.clicked.connect(self.uninstall_clicked)
+            self.validate_button = QPushButton("Validate")
+            self.validate_button.setEnabled(self.game.installed)
+            self.validate_button.clicked.connect(self.validate_clicked)
+            layout.addWidget(self.add_button)
+            layout.addWidget(self.remove_button)
+            layout.addWidget(self.validate_button)
+        else:
+            self.locate_button = QPushButton("Locate")
+            self.executable_path = QLineEdit(self)
+            layout.addWidget(self.locate_button)
+            layout.addWidget(self.executable_path)
+
         self.play_button = QPushButton("Play")
         self.play_button.setEnabled(self.game.installed)
         self.play_button.clicked.connect(self.play_clicked)
 
-        layout.addWidget(self.label_name)
-        layout.addWidget(self.label_installed)
-        layout.addWidget(self.add_button)
-        layout.addWidget(self.remove_button)
-        layout.addWidget(self.validate_button)
         layout.addWidget(self.play_button)
 
         self.setLayout(layout)
