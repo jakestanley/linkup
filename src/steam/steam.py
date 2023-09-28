@@ -13,21 +13,17 @@ class Steam:
     def __init__(self, app_dir: str) -> None:
         self.steamcmd_dir = os.path.join(app_dir, "steamcmd")
         self.games_dir = os.path.join(app_dir, "games")
-        self.cmd = self._SetupSteamCmd()
-
-    def _SetupSteamCmd(self):
-
+        
         os.makedirs(self.steamcmd_dir, exist_ok=True)
         os.makedirs(self.games_dir, exist_ok=True)
 
-        cmd = steamcmd.Steamcmd(self.steamcmd_dir)
+        self.cmd = steamcmd.Steamcmd(self.steamcmd_dir)
         # TODO make unixy
         if os.path.exists(os.path.join(self.steamcmd_dir, "steamcmd.exe")):
             pass
         else:
-            cmd.install()
+            self.cmd.install()
 
-        return cmd
 
     def GetGames(self) -> List[Game]:
 
