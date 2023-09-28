@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QLabel, \
     QLineEdit, QDialogButtonBox
-from lu_config import Config
+from src.config import Config
 
 
 class CommonDialog(QDialog):

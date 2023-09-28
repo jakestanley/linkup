@@ -4,9 +4,9 @@ import subprocess
 from PyQt6.QtWidgets import QApplication, QDialog
 from configparser import ConfigParser
 
-from lu_config import Config
-from lu_insurgency_ui import InsurgencyDialog
-from lu_insurgency_constants import map_aliases
+from src.config import Config
+from src.games.sandstorm.ui import InsurgencyDialog
+from src.games.sandstorm.constants import map_aliases
 
 class InsurgencyOptions:
     def __init__(self, map: str, team: str) -> None:

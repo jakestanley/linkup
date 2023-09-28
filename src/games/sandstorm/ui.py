@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QGroupBox, \
     QRadioButton, QDialogButtonBox, QComboBox
-from lu_insurgency_constants import maps, map_aliases, teams
+from src.games.sandstorm.constants import maps, teams
 
 class InsurgencyDialog(QDialog):
     def __init__(self, parent=None) -> None:

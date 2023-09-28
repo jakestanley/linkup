@@ -3,11 +3,11 @@ import shutil
 from typing import List
 
 from pysteamcmd import steamcmd
-from lu_steam_game import Game
+from src.steam.game import Game
 
 GAME_INSURGENCY=Game("Insurgency", 581330)
-GAME_CSGO=Game("CSGO", 740)
-GAMES = [GAME_INSURGENCY, GAME_CSGO]
+GAME_CS2=Game("Counter-Strike 2", 730)
+GAMES = [GAME_INSURGENCY, GAME_CS2]
 
 class Steam:
     def __init__(self, app_dir: str) -> None:

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 import appdirs
 
-from lu_config import LoadConfig, Config
-from lu_steam import Steam, GAME_INSURGENCY, GAME_CSGO
-import lu_steam_ui as steam_ui
-from lu_common import UpdateConfig
+import src.steam.ui as steam_ui
 
-from lu_insurgency import Insurgency
-from src.games.csgo.game import Csgo
+from src.config import LoadConfig, Config
+from src.steam.steam import Steam, GAME_INSURGENCY, GAME_CS2
+from src.common import UpdateConfig
+
+from src.games.sandstorm.sandstorm import Insurgency
+from src.games.cs2.cs2 import Csgo
 
 # app initial setup
 app_dir = appdirs.user_config_dir(
@@ -23,7 +24,7 @@ config.Save()
 # TODO: consider a "game manager" class
 if selected_game == GAME_INSURGENCY.appId:
     Insurgency(config, steam.games_dir)
-elif selected_game == GAME_CSGO.appId:
+elif selected_game == GAME_CS2.appId:
     Csgo(config, steam.games_dir)
 
 print("Completed")

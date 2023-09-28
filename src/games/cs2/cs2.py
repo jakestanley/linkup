@@ -2,9 +2,9 @@ import os
 import subprocess
 import random
 
-from lu_config import Config
-from src.games.csgo.options import GameTypeMode, CsgoOptions
-from src.games.csgo.ui.options import GetCsgoOptions
+from src.config import Config
+from src.games.cs2.options import GameTypeMode, CsgoOptions
+from src.games.cs2.ui import GetCs2Options
 
 # Game Types: https://totalcsgo.com/commands/gametype
 GAME_TYPES = {
@@ -15,7 +15,7 @@ GAME_TYPES = {
 
 # TODO: game superclass
 def Csgo(config: Config, games_dir: str):
-    opts: CsgoOptions = GetCsgoOptions(GAME_TYPES)
+    opts: CsgoOptions = GetCs2Options(GAME_TYPES)
 
     csgo_dir = os.path.join(games_dir, "csgo")
     # TODO set autoexec values

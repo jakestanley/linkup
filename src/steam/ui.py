@@ -4,9 +4,9 @@ from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, \
     QLabel, QWidget, QDialogButtonBox, QPushButton, QListWidget, \
     QListWidgetItem
-from lu_steam import Steam
-from lu_steam_game import Game
-from ui.pleasewait import PatienceDialog
+from src.steam.steam import Steam
+from src.steam.game import Game
+from src.ui.pleasewait import PatienceDialog
 
 class T_Install(QThread):
     finished = pyqtSignal()
