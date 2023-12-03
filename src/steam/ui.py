@@ -1,7 +1,7 @@
 import sys
 from typing import List
 from PyQt6.QtCore import QThread, pyqtSignal
-from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QHBoxLayout, \
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, \
     QLabel, QWidget, QDialogButtonBox, QPushButton, QListWidget, \
     QListWidgetItem
 from src.steam.steam import Steam
@@ -119,7 +119,7 @@ class SteamDialog(QDialog):
 
 
 def UpdateGames(steam: Steam):
-    app = QApplication([])
+
     games = steam.GetGames()
 
     dialog = SteamDialog(games, steam)

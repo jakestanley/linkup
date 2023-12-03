@@ -32,7 +32,6 @@ class Cs2Dialog(QDialog):
         layout.addWidget(button_box)
 
 def GetCs2Options(game_types: dict):
-    app = QApplication([])
 
     dialog = Cs2Dialog(game_types.keys())
     if dialog.exec() == QDialog.DialogCode.Accepted:

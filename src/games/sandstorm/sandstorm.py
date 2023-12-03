@@ -1,7 +1,7 @@
 import os
 import sys
 import subprocess
-from PyQt6.QtWidgets import QApplication, QDialog
+from PyQt6.QtWidgets import QDialog
 from configparser import ConfigParser
 
 from src.config import Config
@@ -17,7 +17,6 @@ def GetScenario(map: str, team: str):
     return f"Scenario_{map}_Checkpoint_{team}"
 
 def OpenInsurgencyDialog():
-    app = QApplication([])
 
     dialog = InsurgencyDialog()
     if dialog.exec() == QDialog.DialogCode.Accepted:
@@ -46,4 +45,5 @@ def Insurgency(config: Config, games_dir: str):
     # Steam appears to be required, but clashes with regular Steam. `-multihome` (host binding) appears to alleviate this
     command = f"{binpath} {opts.map}?Scenario={opts.scenario}?MaxPlayers=28 -log -NoEAC -multihome={config.host_ip} -motd=BALLS -Rcon -RconPassword={config.rcon_password} -RconListenPort=27015"
     # TODO use threads so UI can continue on main thread
+    print(f"Running command:\n\t{command}")
     subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)

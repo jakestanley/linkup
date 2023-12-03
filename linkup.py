@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import appdirs
 
+from PyQt6.QtWidgets import QApplication
 import src.steam.ui as steam_ui
 
 from src.config import LoadConfig, Config
@@ -11,6 +12,8 @@ from src.games.sandstorm.sandstorm import Insurgency
 from src.games.cs2.cs2 import Csgo
 
 # app initial setup
+app = QApplication([])
+
 app_dir = appdirs.user_config_dir(
     appname="linkup", 
     appauthor="com.github.jakestanley")

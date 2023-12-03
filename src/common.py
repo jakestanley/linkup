@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QDialog, QVBoxLayout, QLabel, \
+from PyQt6.QtWidgets import QDialog, QVBoxLayout, QLabel, \
     QLineEdit, QDialogButtonBox
 from src.config import Config
 
@@ -28,7 +28,6 @@ class CommonDialog(QDialog):
         layout.addWidget(button_box)
 
 def UpdateConfig(config: Config):
-    app = QApplication([])
 
     dialog = CommonDialog(config)
     if dialog.exec() == QDialog.DialogCode.Accepted:

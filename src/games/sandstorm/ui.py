@@ -58,3 +58,12 @@ class InsurgencyDialog(QDialog):
             combobox.addItem(map)
 
         return combobox
+
+if __name__ == "__main__":
+    app = QApplication([])
+
+    dialog = InsurgencyDialog()
+    if dialog.exec() == QDialog.DialogCode.Accepted:
+        print(f"{dialog.maps_combobox.currentText()} {dialog.team}")
+    else:
+        sys.exit(0)

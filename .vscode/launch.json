@@ -2,6 +2,14 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Linkup",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}/linkup.py",
+            "console": "integratedTerminal",
+            "env": { "PYTHONPATH": "${workspaceRoot}"} 
+        }
+        {
            "name": "Python: Current File",
            "type": "python",
            "request": "launch",
