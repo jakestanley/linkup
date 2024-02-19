@@ -37,6 +37,7 @@ def Insurgency(config: Config, games_dir: str):
     iniparser.add_section('/script/insurgency.inscoopmode')
     iniparser['/script/insurgency.inscoopmode']['bBots'] = 'True'
     iniparser['/script/insurgency.inscoopmode']['FriendlyBotQuota'] = '4'
+    iniparser['/script/insurgency.inscoopmode']['bRestrictClassByPlayerLevel'] = 'False'
 
     with open(game_ini_path, 'w') as configfile:
         iniparser.write(configfile)
